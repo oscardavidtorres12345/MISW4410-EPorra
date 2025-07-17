@@ -1,0 +1,43 @@
+.race-create-container {
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.race-create-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.custom-btn-small {
+  width: 40px;
+  max-width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#create {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+  .app-content {
+    margin-left: 0;
+    width: 100vw;
+    padding: 16px;
+  }
+
+  .race-create-container {
+    padding: 8px;
+  }
+}
+
+.container {
+  width: 100%;
+}

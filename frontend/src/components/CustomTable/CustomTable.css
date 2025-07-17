@@ -1,0 +1,104 @@
+table.table {
+  background: #000 !important;
+  color: #fff !important;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background: #4b5b1594 !important;
+  color: #fff !important;
+  border-color: #4b5b15 !important;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.table thead th {
+  text-align: center;
+}
+
+.table tbody tr {
+  background: #000 !important;
+  color: #fff !important;
+  transition: background 0.2s, color 0.2s;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background: #111 !important;
+}
+
+.table-bordered {
+  border-color: #4b5b15 !important;
+}
+
+.table td,
+.table th {
+  border-color: #4b5b15 !important;
+}
+
+.table tbody tr td {
+  background: #000 !important;
+  color: #fff !important;
+  border-color: #4b5b15 !important;
+}
+
+.actions-container {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 200px;
+}
+
+.table.has-actions th:last-child,
+.table.has-actions td:last-child {
+  width: 1%;
+  min-width: 200px;
+  max-width: 200px;
+  white-space: nowrap;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.action-button {
+  background: #181818 !important;
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #fff !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  margin: 0;
+}
+
+.action-button:hover {
+  background: #2a2a2a !important;
+  border-color: #eaff7b !important;
+  color: #eaff7b !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2 4px rgba(234, 255, 123, 0.2);
+}
+
+.action-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1 2px rgba(234, 255, 123, 0.2);
+}
+
+.action-button svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.action-button i {
+  font-size: 16px;
+  margin: 0;
+}

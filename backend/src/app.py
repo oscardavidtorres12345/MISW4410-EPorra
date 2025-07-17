@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from logica.Logica import Logica
 
 # Constants for messages
@@ -11,6 +12,7 @@ ERROR_JSON_REQUERIDO = 'No se recibió información JSON'
 ERROR_NOMBRE_REQUERIDO = 'El nombre de la carrera es requerido'
 
 app = Flask(__name__)
+CORS(app)
 logica = Logica()
 
 @app.route('/carreras', methods=['GET'])
@@ -91,4 +93,4 @@ def crear_carrera():
         }), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True, host='0.0.0.0', port=8001)

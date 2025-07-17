@@ -1,0 +1,98 @@
+.add-list-label {
+  font-weight: bold;
+  color: #fff;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.add-list__label-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-list-plus-btn:hover,
+.add-list-plus-btn:focus,
+:not(.btn-check) + .add-list-plus-btn:active {
+  border-color: #eaff7b !important;
+  outline: none !important;
+}
+
+.add-list-inputs-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+}
+
+.add-list-inputs-container {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+}
+
+.add-list-buttons-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.add-list-action-btn,
+.add-list-plus-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 0 12px 2px #ccf54666, 0 2px 8px #18181822;
+}
+
+.add-list-action-btn:hover,
+.add-list-action-btn:focus,
+:not(.btn-check) + .add-list-action-btn:active {
+  box-shadow: 0 0 16px 4px #ccf54699, 0 2px 8px #18181844 !important;
+}
+
+.add-list-action-btn i {
+  font-size: 1.2rem;
+}
+
+.add-list-table-container {
+  padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .add-list-inputs-row {
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+
+  .add-list-inputs-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .add-list-inputs-container .custom-input {
+    width: 100%;
+  }
+
+  .add-list-buttons-container {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .add-list-buttons-container .add-list-action-btn {
+    width: 48%;
+    height: 48px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .add-list-inputs-row {
+    gap: 0.75rem;
+  }
+}

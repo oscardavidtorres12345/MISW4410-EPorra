@@ -1,0 +1,21 @@
+.table-wrapper {
+  padding: 24px 0;
+  width: 100%;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 1000;
+}
+
+.container {
+  width: 100%;
+}
