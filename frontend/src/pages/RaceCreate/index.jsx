@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import axios from "axios";
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
 
 function RaceCreate() {
   const navigate = useNavigate();

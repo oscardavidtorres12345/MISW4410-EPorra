@@ -7,7 +7,7 @@ import axios from "axios";
 import Loading from "../../components/Loading";
 
 function RaceList() {
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
   const navigate = useNavigate();
   const headers = ["Carrera"];
   const [data, setData] = useState([]);
