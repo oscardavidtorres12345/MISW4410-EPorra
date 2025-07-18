@@ -25,9 +25,9 @@ function RaceList() {
     axios
       .get(`${BACKEND_URL}/carreras`)
       .then((response) => {
-        const carreras = response.data.data || [];
-        const carrerasData = carreras.map((carrera) => [carrera.Nombre]);
-        setData(carrerasData);
+        const racing = response.data.data || [];
+        const racingData = racing.map((race) => [race.Nombre]);
+        setData(racingData);
       })
       .catch((error) => {
         console.error(error);
@@ -62,7 +62,7 @@ function RaceList() {
       </div>
       <div className="table-wrapper" data-testid="table-wrapper">
         {data.length === 0 ? (
-          <div className="no-carreras-msg">
+          <div className="no-racing-msg">
             ¡Ups! parece que aun no hay carreras para mostrar :(
           </div>
         ) : (
