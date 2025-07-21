@@ -6,15 +6,38 @@ import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import axios from "axios";
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+
+import Swal from "sweetalert2";
+import { showAlert } from "../../utils/alert";
+
+Swal.mixin({
+  background: "#181818",
+  color: "#fff",
+  confirmButtonColor: "#ccf546",
+});
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function RaceCreate() {
   const navigate = useNavigate();
   const [nameRace, setNameRace] = useState("");
   const [competitors, setCompetitors] = useState([]);
+  const [nameError, setNameError] = useState(false);
+  const [nameHelper, setNameHelper] = useState(
+    "Escribe el nombre oficial de la carrera"
+  );
 
   const getNameRace = (e) => {
-    setNameRace(e.target.value);
+    const value = e.target.value;
+    setNameRace(value);
+    if (value.length > 50) {
+      setNameError(true);
+      setNameHelper(
+        "El nombre de la carrera no puede superar los 50 caracteres"
+      );
+    } else {
+      setNameError(false);
+      setNameHelper("Escribe el nombre oficial de la carrera");
+    }
   };
 
   const getCompetitors = (data) => {
@@ -22,7 +45,7 @@ function RaceCreate() {
   };
 
   const isFormValid = () => {
-    if (!nameRace.trim()) {
+    if (!nameRace.trim() || nameRace.length > 50) {
       return false;
     }
 
@@ -35,7 +58,7 @@ function RaceCreate() {
       return sum + probability;
     }, 0);
 
-    return totalProbability === 1;
+    return totalProbability > 0 && totalProbability <= 1;
   };
 
   const createRace = async () => {
@@ -50,12 +73,36 @@ function RaceCreate() {
       });
       navigate("/");
     } catch (error) {
+      showAlert({
+        icon: "error",
+        title: "Error al crear la carrera",
+        text: "Ocurrió un error al guardar la carrera. Por favor, intenta de nuevo.",
+      });
       console.error(error);
     }
   };
 
-  const handleSave = () => {
-    createRace();
+  const handleSave = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/carreras`);
+      const carreras = response.data.data || [];
+      const existe = carreras.some(
+        (carrera) =>
+          carrera.Nombre.trim().toLowerCase() === nameRace.trim().toLowerCase()
+      );
+      if (existe) {
+        showAlert({
+          icon: "error",
+          title: "Nombre duplicado",
+          text: "La carrera no se puede guardar porque ya existe otra carrera con el mismo nombre.",
+        });
+        return;
+      }
+
+      await createRace();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -83,7 +130,8 @@ function RaceCreate() {
           value={nameRace}
           onChange={getNameRace}
           placeholder="Ej: Gran Premio de Mónaco"
-          helperText="Escribe el name oficial de la carrera"
+          helperText={nameHelper}
+          error={nameError}
         />
 
         <AddList

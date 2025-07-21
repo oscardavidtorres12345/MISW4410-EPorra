@@ -57,7 +57,7 @@ function RaceList() {
       <div className="app-header-page">
         <h2 className="app-header-page-title">Lista de carreras</h2>
         <CustomButton onClick={() => navigate("/create")} variant="primary">
-          Nueva Carrera
+          Agregar Carrera
         </CustomButton>
       </div>
       <div className="table-wrapper" data-testid="table-wrapper">

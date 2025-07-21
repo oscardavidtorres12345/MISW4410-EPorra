@@ -17,26 +17,37 @@ function AddList({
   const [firstFieldValue, setFirstFieldValue] = useState("");
   const [secondFieldValue, setSecondFieldValue] = useState("");
   const [rows, setRows] = useState([]);
+  const [editIdx, setEditIdx] = useState(null);
 
   const handleAddClick = () => {
     setShowInputs(true);
     setFirstFieldValue("");
     setSecondFieldValue("");
+    setEditIdx(null);
   };
 
   const handleCancel = () => {
     setShowInputs(false);
     setFirstFieldValue("");
     setSecondFieldValue("");
+    setEditIdx(null);
   };
 
   const handleSave = () => {
     if (firstFieldValue.trim() !== "" && secondFieldValue.trim() !== "") {
-      const newRows = [...rows, { firstFieldValue, secondFieldValue }];
+      let newRows;
+      if (editIdx !== null) {
+        newRows = rows.map((row, idx) =>
+          idx === editIdx ? { firstFieldValue, secondFieldValue } : row
+        );
+      } else {
+        newRows = [...rows, { firstFieldValue, secondFieldValue }];
+      }
       setRows(newRows);
       setShowInputs(false);
       setFirstFieldValue("");
       setSecondFieldValue("");
+      setEditIdx(null);
 
       if (onDataChange) {
         onDataChange(newRows);
@@ -50,6 +61,13 @@ function AddList({
     if (onDataChange) {
       onDataChange(newRows);
     }
+  };
+
+  const handleEdit = (row, rowIdx) => {
+    setFirstFieldValue(row[firstField]);
+    setSecondFieldValue(row[secondField]);
+    setEditIdx(rowIdx);
+    setShowInputs(true);
   };
 
   return (
@@ -106,15 +124,21 @@ function AddList({
         <div className="add-list-table-container">
           <CustomTable
             headers={[firstField, secondField]}
-            data={rows.map((row) => ({
-              [firstField]: row.firstFieldValue,
-              [secondField]: row.secondFieldValue,
-            }))}
+            data={rows
+              .map((row, idx) => ({
+                [firstField]: row.firstFieldValue,
+                [secondField]: row.secondFieldValue,
+                _rowIdx: idx,
+              }))
+              .filter((row) => editIdx === null || row._rowIdx !== editIdx)}
             actions={[
               {
+                icon: "pencil",
+                onClick: (row) => handleEdit(row, row._rowIdx),
+              },
+              {
                 icon: "trash",
-                onClick: (row, rowIdx) => handleDelete(rowIdx),
-                tooltip: "Eliminar",
+                onClick: (row) => handleDelete(row._rowIdx),
               },
             ]}
           />

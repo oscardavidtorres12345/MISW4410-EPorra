@@ -8,6 +8,7 @@ function CustomInput({
   value,
   onChange,
   placeholder,
+  error,
 }) {
   return (
     <div className="custom-input-container">
@@ -19,7 +20,15 @@ function CustomInput({
         onChange={onChange}
         placeholder={placeholder}
       />
-      {helperText && <p className="custom-input-helper">{helperText}</p>}
+      {helperText && (
+        <p
+          className={
+            error ? "custom-input-helper-error" : "custom-input-helper"
+          }
+        >
+          {helperText}
+        </p>
+      )}
     </div>
   );
 }
@@ -31,6 +40,7 @@ CustomInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  error: PropTypes.bool,
 };
 
 CustomInput.defaultProps = {

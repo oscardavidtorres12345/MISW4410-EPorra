@@ -81,8 +81,39 @@ describe("RaceCreate", () => {
     });
   });
 
-  it("shows error in console if createRace fails", async () => {
+  it("shows error in console if createRace fails (Error genérico)", async () => {
     const error = new Error("Request failed");
+    axios.post.mockRejectedValueOnce(error);
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const { container } = render(<RaceCreate />, { wrapper: Wrapper });
+    const nameInput = screen.getByPlaceholderText("Ej: Gran Premio de Mónaco");
+    fireEvent.change(nameInput, { target: { value: "Gran Premio" } });
+
+    const addButton = container.querySelector(".add-list-plus-btn");
+    fireEvent.click(addButton);
+
+    const competitorName = screen.getByPlaceholderText(/nombre/i);
+    const competitorProb = screen.getByPlaceholderText(/probabilidad/i);
+    fireEvent.change(competitorName, { target: { value: "Competidor 1" } });
+    fireEvent.change(competitorProb, { target: { value: "1" } });
+
+    const saveCompetitor = container.querySelector(".custom-btn-primary");
+    fireEvent.click(saveCompetitor);
+
+    const saveButton = screen.getByText("Guardar");
+    await waitFor(() => expect(saveButton).not.toBeDisabled());
+    fireEvent.click(saveButton);
+    await waitFor(() => {
+      expect(errorSpy).toHaveBeenCalled();
+    });
+    errorSpy.mockRestore();
+  });
+
+  it("shows error in console if createRace fails (TypeError específico)", async () => {
+    const error = new TypeError(
+      "Cannot read properties of undefined (reading 'data')"
+    );
     axios.post.mockRejectedValueOnce(error);
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
